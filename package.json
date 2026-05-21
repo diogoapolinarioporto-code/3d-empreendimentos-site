@@ -1,0 +1,17 @@
+{
+  "name": "3d-empreendimentos",
+  "version": "1.0.0",
+  "description": "Site institucional - 3D Empreendimentos | Grupo Imobiliário Integrado",
+  "main": "script.js",
+  "scripts": {
+    "dev": "live-server --port=3000 --ignore=node_modules",
+    "start": "live-server --port=3000 --ignore=node_modules"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
