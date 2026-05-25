@@ -363,3 +363,38 @@ ul { list-style: none; }
     .diff-grid { grid-template-columns: 1fr; }
     .diff-card { min-height: 200px; }
 }
+
+/* ===== WHATSAPP FLUTUANTE ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition: var(--transition);
+    animation: whatsappPulse 2s infinite;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+.whatsapp-float svg {
+    width: 32px;
+    height: 32px;
+    color: #fff;
+}
+@keyframes whatsappPulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+    50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6), 0 0 0 8px rgba(37, 211, 102, 0.1); }
+}
+@media (max-width: 768px) {
+    .whatsapp-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+    .whatsapp-float svg { width: 28px; height: 28px; }
+}
