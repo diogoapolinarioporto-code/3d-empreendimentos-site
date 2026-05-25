@@ -1,6 +1,6 @@
 // ===== SUPABASE CONFIG =====
-const SUPABASE_URL = 'https://obtmwigzedahjrupcixq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9idG13aWd6ZWRhaGpydXBjaXhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNzAwMDEsImV4cCI6MjA5NDk0NjAwMX0.UBuGShCuBVeeEU52-E7rKdSg1Pb0WyRWGjAuyKl-D8g';
+const SUPABASE_URL = 'https://pnmdhcjhyknmcfthcqcr.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBubWRoY2poeWtubWNmdGhjcWNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNzk4NDcsImV4cCI6MjA5NDk1NTg0N30.Xq4wjeiCKu8isRnjwuLZRxY9YLH2ANh33MXCbLRSsIw';
 
 // ===== HEADER SCROLL EFFECT =====
 const header = document.getElementById('header');
