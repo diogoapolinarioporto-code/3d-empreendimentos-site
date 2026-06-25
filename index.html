@@ -37,6 +37,7 @@
                 <a href="#sobre" class="nav-link">Sobre</a>
                 <a href="#servicos" class="nav-link">Serviços</a>
                 <a href="#gestao" class="nav-link">Gestão 360°</a>
+                <a href="#imoveis" class="nav-link">Imóveis</a>
                 <a href="#diferenciais" class="nav-link">Diferenciais</a>
                 <a href="#contato" class="nav-link nav-link--cta">Fale Conosco</a>
             </nav>
@@ -351,6 +352,29 @@
             </div>
         </div>
     </section>
+
+    <!-- Imóveis Section -->
+    <section class="section section-imoveis" id="imoveis">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Portfólio</span>
+                <h2 class="section-title">Imóveis Disponíveis</h2>
+                <p class="section-desc">Oportunidades selecionadas pelo nosso time de especialistas</p>
+            </div>
+            <div class="imoveis-grid" id="imoveisGrid">
+                <!-- Carregado via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Imóvel -->
+    <div class="imovel-modal" id="imovelModal">
+        <div class="imovel-modal-content glass-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-gallery" id="modalGallery"></div>
+            <div class="modal-info" id="modalInfo"></div>
+        </div>
+    </div>
 
     <!-- CTA Section - com imagem de fundo -->
     <section class="section section-cta">

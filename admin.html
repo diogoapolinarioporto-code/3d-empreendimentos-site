@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - 3D Empreendimentos</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #041d29; color: #fafcfb; min-height: 100vh; }
+        .login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .login-box { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.15); border-radius: 16px; padding: 40px; max-width: 400px; width: 90%; text-align: center; }
+        .login-box h1 { font-size: 1.5rem; margin-bottom: 8px; }
+        .login-box p { color: #98a4a6; font-size: 0.9rem; margin-bottom: 24px; }
+        .login-box input { width: 100%; padding: 14px; background: rgba(91,111,120,0.15); border: 1px solid rgba(152,164,166,0.2); border-radius: 8px; color: #fff; font-size: 1rem; text-align: center; outline: none; margin-bottom: 16px; }
+        .login-box input:focus { border-color: #5b6f78; }
+        .login-box button { width: 100%; padding: 14px; background: #fff; color: #041d29; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .login-box button:hover { background: #fafcfb; }
+        .login-error { color: #ef4444; font-size: 0.85rem; margin-top: 8px; display: none; }
+
+        .admin-panel { display: none; padding: 24px; max-width: 900px; margin: 0 auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid rgba(152,164,166,0.15); }
+        .admin-header h1 { font-size: 1.3rem; }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background: #fff; color: #041d29; }
+        .btn-primary:hover { background: #fafcfb; transform: translateY(-1px); }
+        .btn-danger { background: #ef4444; color: #fff; }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+        .imoveis-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+        .imovel-item { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.1); border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .imovel-item h3 { font-size: 0.95rem; margin-bottom: 4px; }
+        .imovel-item p { color: #98a4a6; font-size: 0.8rem; }
+        .imovel-actions { display: flex; gap: 8px; }
+
+        .form-section { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.1); border-radius: 12px; padding: 28px; display: none; }
+        .form-section.active { display: block; }
+        .form-section h2 { font-size: 1.1rem; margin-bottom: 20px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label { display: block; font-size: 0.75rem; color: #98a4a6; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; background: rgba(91,111,120,0.15); border: 1px solid rgba(152,164,166,0.2); border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #5b6f78; }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-actions { display: flex; gap: 12px; margin-top: 20px; }
+
+        .images-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .images-preview img { width: 80px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(152,164,166,0.2); }
+        .img-url-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+        .img-url-list input { font-size: 0.8rem; padding: 8px; }
+        .add-img-btn { margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: rgba(91,111,120,0.2); border: 1px solid rgba(152,164,166,0.2); border-radius: 6px; color: #98a4a6; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h1>Painel Admin</h1>
+            <p>3D Empreendimentos - Gestão de Imóveis</p>
+            <input type="password" id="adminPassword" placeholder="Senha de acesso" autofocus>
+            <button onclick="doLogin()">Entrar</button>
+            <p class="login-error" id="loginError">Senha incorreta</p>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h1>Gestão de Imóveis</h1>
+            <button class="btn btn-primary" onclick="showForm()">+ Novo Imóvel</button>
+        </div>
+
+        <!-- Lista de Imóveis -->
+        <div class="imoveis-list" id="imoveisList"></div>
+
+        <!-- Formulário -->
+        <div class="form-section" id="formSection">
+            <h2 id="formTitle">Adicionar Imóvel</h2>
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Título</label>
+                    <input type="text" id="f_titulo" placeholder="Ex: Les Residences de Mônaco - 4 Suítes">
+                </div>
+                <div class="form-group">
+                    <label>Valor de Venda (R$)</label>
+                    <input type="text" id="f_valor" placeholder="15.000.000">
+                </div>
+                <div class="form-group">
+                    <label>Condomínio (R$)</label>
+                    <input type="text" id="f_condominio" placeholder="8.000">
+                </div>
+                <div class="form-group">
+                    <label>IPTU (R$/ano)</label>
+                    <input type="text" id="f_iptu" placeholder="42.000">
+                </div>
+                <div class="form-group">
+                    <label>Quartos</label>
+                    <input type="text" id="f_quartos" placeholder="4">
+                </div>
+                <div class="form-group">
+                    <label>Suítes</label>
+                    <input type="text" id="f_suites" placeholder="4">
+                </div>
+                <div class="form-group">
+                    <label>Banheiros</label>
+                    <input type="text" id="f_banheiros" placeholder="5">
+                </div>
+                <div class="form-group">
+                    <label>Vagas</label>
+                    <input type="text" id="f_vagas" placeholder="4">
+                </div>
+                <div class="form-group">
+                    <label>Área (m²)</label>
+                    <input type="text" id="f_area" placeholder="280">
+                </div>
+                <div class="form-group full">
+                    <label>Descrição</label>
+                    <textarea id="f_descricao" placeholder="Descrição completa do imóvel..."></textarea>
+                </div>
+                <div class="form-group full">
+                    <label>URLs das Imagens</label>
+                    <div class="img-url-list" id="imgUrlList">
+                        <input type="text" class="img-url" placeholder="https://...">
+                    </div>
+                    <button class="add-img-btn" onclick="addImageField()">+ Adicionar imagem</button>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveImovel()">Salvar</button>
+                <button class="btn btn-danger" onclick="hideForm()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const ADMIN_PASS = 'RJ0001';
+    let imoveis = [];
+    let editingId = null;
+
+    // Login
+    document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') doLogin();
+    });
+
+    function doLogin() {
+        const pass = document.getElementById('adminPassword').value;
+        if (pass === ADMIN_PASS) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadImoveis();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    }
+
+    // Load imóveis from JSON
+    async function loadImoveis() {
+        try {
+            const res = await fetch('imoveis.json?t=' + Date.now());
+            imoveis = await res.json();
+        } catch(e) {
+            imoveis = [];
+        }
+        renderList();
+    }
+
+    function renderList() {
+        const list = document.getElementById('imoveisList');
+        if (imoveis.length === 0) {
+            list.innerHTML = '<p style="color:#98a4a6;text-align:center;padding:40px;">Nenhum imóvel cadastrado</p>';
+            return;
+        }
+        list.innerHTML = imoveis.map((im, i) => `
+            <div class="imovel-item">
+                <div>
+                    <h3>${im.titulo}</h3>
+                    <p>R$ ${im.valor_venda} | ${im.quartos} quartos | ${im.vagas} vagas</p>
+                </div>
+                <div class="imovel-actions">
+                    <button class="btn btn-sm btn-primary" onclick="editImovel(${i})">Editar</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteImovel(${i})">Excluir</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function showForm() {
+        editingId = null;
+        document.getElementById('formTitle').textContent = 'Adicionar Imóvel';
+        clearForm();
+        document.getElementById('formSection').classList.add('active');
+    }
+
+    function hideForm() {
+        document.getElementById('formSection').classList.remove('active');
+        clearForm();
+    }
+
+    function clearForm() {
+        ['titulo','valor','condominio','iptu','quartos','suites','banheiros','vagas','area','descricao'].forEach(f => {
+            document.getElementById('f_' + f).value = '';
+        });
+        document.getElementById('imgUrlList').innerHTML = '<input type="text" class="img-url" placeholder="https://...">';
+    }
+
+    function addImageField() {
+        const div = document.getElementById('imgUrlList');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'img-url';
+        input.placeholder = 'https://...';
+        div.appendChild(input);
+    }
+
+    function editImovel(index) {
+        editingId = index;
+        const im = imoveis[index];
+        document.getElementById('formTitle').textContent = 'Editar Imóvel';
+        document.getElementById('f_titulo').value = im.titulo || '';
+        document.getElementById('f_valor').value = im.valor_venda || '';
+        document.getElementById('f_condominio').value = im.condominio || '';
+        document.getElementById('f_iptu').value = im.iptu || '';
+        document.getElementById('f_quartos').value = im.quartos || '';
+        document.getElementById('f_suites').value = im.suites || '';
+        document.getElementById('f_banheiros').value = im.banheiros || '';
+        document.getElementById('f_vagas').value = im.vagas || '';
+        document.getElementById('f_area').value = im.area || '';
+        document.getElementById('f_descricao').value = im.descricao || '';
+        
+        const imgList = document.getElementById('imgUrlList');
+        imgList.innerHTML = '';
+        (im.imagens || []).forEach(url => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'img-url';
+            input.value = url;
+            imgList.appendChild(input);
+        });
+        if ((im.imagens || []).length === 0) addImageField();
+        
+        document.getElementById('formSection').classList.add('active');
+    }
+
+    function deleteImovel(index) {
+        if (confirm('Excluir este imóvel?')) {
+            imoveis.splice(index, 1);
+            renderList();
+            downloadJSON();
+        }
+    }
+
+    function saveImovel() {
+        const imagens = Array.from(document.querySelectorAll('.img-url'))
+            .map(i => i.value.trim())
+            .filter(u => u.length > 0);
+
+        const imovel = {
+            id: editingId !== null ? imoveis[editingId].id : Date.now().toString(),
+            titulo: document.getElementById('f_titulo').value,
+            valor_venda: document.getElementById('f_valor').value,
+            condominio: document.getElementById('f_condominio').value,
+            iptu: document.getElementById('f_iptu').value,
+            quartos: document.getElementById('f_quartos').value,
+            suites: document.getElementById('f_suites').value,
+            banheiros: document.getElementById('f_banheiros').value,
+            vagas: document.getElementById('f_vagas').value,
+            area: document.getElementById('f_area').value,
+            descricao: document.getElementById('f_descricao').value,
+            imagens: imagens,
+            ativo: true
+        };
+
+        if (editingId !== null) {
+            imoveis[editingId] = imovel;
+        } else {
+            imoveis.push(imovel);
+        }
+
+        renderList();
+        hideForm();
+        downloadJSON();
+    }
+
+    function downloadJSON() {
+        const json = JSON.stringify(imoveis, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'imoveis.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        alert('Arquivo imoveis.json baixado! Substitua o arquivo no repositório para atualizar o site.');
+    }
+    </script>
+</body>
+</html>

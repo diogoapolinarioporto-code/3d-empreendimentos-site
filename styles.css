@@ -398,3 +398,76 @@ ul { list-style: none; }
     .whatsapp-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
     .whatsapp-float svg { width: 28px; height: 28px; }
 }
+
+/* ===== IMÓVEIS ===== */
+.section-imoveis { background: var(--color-bg); }
+.imoveis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+.imovel-card {
+    border-radius: var(--radius-lg); overflow: hidden; cursor: pointer;
+    transition: var(--transition); border: 1px solid var(--color-glass-border);
+    background: var(--color-glass);
+}
+.imovel-card:hover { transform: translateY(-6px); border-color: rgba(152,164,166,0.25); }
+.imovel-card-img { width: 100%; height: 220px; object-fit: cover; }
+.imovel-card-body { padding: 24px; }
+.imovel-card-title { font-family: var(--font-display); font-size: 1.05rem; color: var(--branco); margin-bottom: 12px; line-height: 1.3; }
+.imovel-card-price { font-size: 1.3rem; font-weight: 600; color: var(--branco); margin-bottom: 12px; }
+.imovel-card-details { display: flex; gap: 16px; flex-wrap: wrap; }
+.imovel-detail { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: var(--cinza-nevoa); }
+.imovel-detail strong { color: var(--branco-gelo); }
+
+/* ===== MODAL ===== */
+.imovel-modal {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(4,29,41,0.92); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 24px;
+}
+.imovel-modal.active { display: flex; }
+.imovel-modal-content {
+    max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto;
+    padding: 0; position: relative;
+}
+.modal-close {
+    position: absolute; top: 16px; right: 16px; z-index: 10;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(4,29,41,0.8); border: 1px solid rgba(152,164,166,0.2);
+    color: #fff; font-size: 1.3rem; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+}
+.modal-close:hover { background: rgba(91,111,120,0.3); }
+.modal-gallery { position: relative; }
+.modal-gallery img { width: 100%; height: 350px; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.gallery-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(4,29,41,0.7); border: none; color: #fff;
+    font-size: 1.2rem; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+}
+.gallery-nav.prev { left: 12px; }
+.gallery-nav.next { right: 12px; }
+.gallery-nav:hover { background: rgba(4,29,41,0.9); }
+.gallery-dots { display: flex; gap: 6px; justify-content: center; padding: 12px; }
+.gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(152,164,166,0.3); cursor: pointer; }
+.gallery-dot.active { background: var(--branco); }
+.modal-info { padding: 28px; }
+.modal-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--branco); margin-bottom: 16px; }
+.modal-price { font-size: 1.5rem; font-weight: 700; color: var(--branco); margin-bottom: 8px; }
+.modal-costs { display: flex; gap: 20px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(152,164,166,0.1); }
+.modal-costs span { font-size: 0.85rem; color: var(--cinza-nevoa); }
+.modal-costs strong { color: var(--branco-gelo); }
+.modal-specs { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(152,164,166,0.1); }
+.modal-spec { text-align: center; }
+.modal-spec-value { font-size: 1.2rem; font-weight: 600; color: var(--branco); display: block; }
+.modal-spec-label { font-size: 0.7rem; color: var(--cinza-nevoa); text-transform: uppercase; letter-spacing: 0.05em; }
+.modal-desc { color: var(--cinza-nevoa); font-size: 0.9rem; line-height: 1.7; white-space: pre-line; }
+.modal-cta { margin-top: 24px; }
+
+.no-imoveis { text-align: center; padding: 60px 20px; color: var(--cinza-nevoa); }
+
+@media (max-width: 768px) {
+    .imoveis-grid { grid-template-columns: 1fr; }
+    .modal-gallery img { height: 240px; }
+    .modal-info { padding: 20px; }
+    .modal-costs { flex-direction: column; gap: 8px; }
+}

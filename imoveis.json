@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "titulo": "Les Residences de Mônaco - 4 Suítes - Praia da Barra",
+    "valor_venda": "15.000.000",
+    "condominio": "8.000",
+    "iptu": "42.000",
+    "quartos": "4",
+    "suites": "4",
+    "banheiros": "5",
+    "vagas": "4",
+    "descricao": "Apresentamos uma oportunidade no Les Residences de Mônaco. Apartamento 4 Suítes Praia da Barra. 4 quartos (sendo 4 suítes), 5 banheiros, 4 vagas cobertas.\n\nApartamento de Alto Padrão em um dos condomínios mais exclusivos da Barra, com segurança 24H e Infraestrutura completa de lazer.\n\nO condomínio oferece um verdadeiro Clube Privativo Indoor, com Piscinas Aquecidas (incluindo piscina de raia), Saunas, Academia completa, espaço para Pilates e Yoga, Restaurante, Brinquedoteca, Quadra de Tênis, Salão de Festas, Salão de Jogos e diversas opções para toda a família.\n\nConta ainda com Estacionamento para Visitantes e Box privativo para guardados.\n\nPlanta muito bem distribuída: Hall social, amplo Salão multiambiente, Lavabo, Varanda, Sala íntima com sacada e 4 Suítes, sendo uma suíte master com hidromassagem.\n\nCopa-cozinha com ilha, área de serviço completa, além de dependência completa de funcionários.\n\nUm imóvel ideal para quem busca conforto, espaço e exclusividade em localização privilegiada.",
+    "imagens": [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+    ],
+    "ativo": true
+  }
+]

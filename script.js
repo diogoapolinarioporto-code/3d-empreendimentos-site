@@ -158,3 +158,128 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+// ===== IMÓVEIS =====
+let imoveisData = [];
+let modalCurrentImg = 0;
+let modalImagens = [];
+
+async function loadImoveis() {
+    try {
+        const res = await fetch('imoveis.json?t=' + Date.now());
+        imoveisData = await res.json();
+        renderImoveis();
+    } catch(e) {
+        document.getElementById('imoveisGrid').innerHTML = '<p class="no-imoveis">Nenhum imóvel disponível no momento.</p>';
+    }
+}
+
+function renderImoveis() {
+    const grid = document.getElementById('imoveisGrid');
+    const ativos = imoveisData.filter(im => im.ativo);
+    
+    if (ativos.length === 0) {
+        grid.innerHTML = '<p class="no-imoveis">Nenhum imóvel disponível no momento.</p>';
+        return;
+    }
+
+    grid.innerHTML = ativos.map((im, i) => `
+        <div class="imovel-card" onclick="openModal(${i})">
+            <img src="${im.imagens && im.imagens[0] ? im.imagens[0] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80'}" alt="${im.titulo}" class="imovel-card-img" loading="lazy">
+            <div class="imovel-card-body">
+                <h3 class="imovel-card-title">${im.titulo}</h3>
+                <p class="imovel-card-price">R$ ${im.valor_venda}</p>
+                <div class="imovel-card-details">
+                    ${im.quartos ? `<span class="imovel-detail"><strong>${im.quartos}</strong> quartos</span>` : ''}
+                    ${im.suites ? `<span class="imovel-detail"><strong>${im.suites}</strong> suítes</span>` : ''}
+                    ${im.banheiros ? `<span class="imovel-detail"><strong>${im.banheiros}</strong> banh.</span>` : ''}
+                    ${im.vagas ? `<span class="imovel-detail"><strong>${im.vagas}</strong> vagas</span>` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openModal(index) {
+    const im = imoveisData.filter(i => i.ativo)[index];
+    modalImagens = im.imagens || [];
+    modalCurrentImg = 0;
+
+    const gallery = document.getElementById('modalGallery');
+    const info = document.getElementById('modalInfo');
+
+    renderGallery(gallery);
+
+    info.innerHTML = `
+        <h2 class="modal-title">${im.titulo}</h2>
+        <p class="modal-price">R$ ${im.valor_venda}</p>
+        <div class="modal-costs">
+            ${im.condominio ? `<span>Condomínio: <strong>R$ ${im.condominio}</strong></span>` : ''}
+            ${im.iptu ? `<span>IPTU: <strong>R$ ${im.iptu}/ano</strong></span>` : ''}
+        </div>
+        <div class="modal-specs">
+            ${im.quartos ? `<div class="modal-spec"><span class="modal-spec-value">${im.quartos}</span><span class="modal-spec-label">Quartos</span></div>` : ''}
+            ${im.suites ? `<div class="modal-spec"><span class="modal-spec-value">${im.suites}</span><span class="modal-spec-label">Suítes</span></div>` : ''}
+            ${im.banheiros ? `<div class="modal-spec"><span class="modal-spec-value">${im.banheiros}</span><span class="modal-spec-label">Banheiros</span></div>` : ''}
+            ${im.vagas ? `<div class="modal-spec"><span class="modal-spec-value">${im.vagas}</span><span class="modal-spec-label">Vagas</span></div>` : ''}
+            ${im.area ? `<div class="modal-spec"><span class="modal-spec-value">${im.area}</span><span class="modal-spec-label">m²</span></div>` : ''}
+        </div>
+        <p class="modal-desc">${im.descricao || ''}</p>
+        <div class="modal-cta">
+            <a href="https://wa.me/5521976331432?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(im.titulo)}" class="btn btn-primary" target="_blank">Tenho interesse</a>
+        </div>
+    `;
+
+    document.getElementById('imovelModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderGallery(gallery) {
+    if (modalImagens.length === 0) {
+        gallery.innerHTML = '<img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Imóvel">';
+        return;
+    }
+    const dots = modalImagens.map((_, i) => `<div class="gallery-dot ${i === modalCurrentImg ? 'active' : ''}" onclick="goToImg(${i})"></div>`).join('');
+    gallery.innerHTML = `
+        <img src="${modalImagens[modalCurrentImg]}" alt="Foto do imóvel">
+        ${modalImagens.length > 1 ? `<button class="gallery-nav prev" onclick="prevImg()">‹</button><button class="gallery-nav next" onclick="nextImg()">›</button>` : ''}
+        ${modalImagens.length > 1 ? `<div class="gallery-dots">${dots}</div>` : ''}
+    `;
+}
+
+function prevImg() {
+    modalCurrentImg = (modalCurrentImg - 1 + modalImagens.length) % modalImagens.length;
+    renderGallery(document.getElementById('modalGallery'));
+}
+function nextImg() {
+    modalCurrentImg = (modalCurrentImg + 1) % modalImagens.length;
+    renderGallery(document.getElementById('modalGallery'));
+}
+function goToImg(i) {
+    modalCurrentImg = i;
+    renderGallery(document.getElementById('modalGallery'));
+}
+
+function closeModal() {
+    document.getElementById('imovelModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close modal on ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// Close modal on backdrop click
+document.getElementById('imovelModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('imovelModal')) closeModal();
+});
+
+// ===== ADMIN SECRET TRIGGER =====
+// Clique duplo na logo do footer abre o painel admin
+document.querySelector('.footer-brand').addEventListener('dblclick', () => {
+    window.open('admin.html', '_blank');
+});
+
+// Load imóveis on page load
+loadImoveis();
