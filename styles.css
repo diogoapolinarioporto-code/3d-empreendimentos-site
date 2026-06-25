@@ -399,6 +399,102 @@ ul { list-style: none; }
     .whatsapp-float svg { width: 28px; height: 28px; }
 }
 
+/* ===== IMÓVEIS FILTERS ===== */
+.imoveis-filters {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    padding: 24px 28px;
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(24px) saturate(1.2);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
+}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.filter-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-nevoa);
+}
+.filter-select {
+    padding: 10px 36px 10px 14px;
+    background: rgba(91,111,120,0.15);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--branco);
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: var(--transition);
+}
+.filter-select:focus {
+    border-color: var(--azul-ardosia);
+    background-color: rgba(91,111,120,0.25);
+}
+.filter-select option {
+    background: var(--azul-norturno);
+    color: var(--branco);
+}
+.filter-buttons {
+    display: flex;
+    gap: 6px;
+}
+.filter-btn {
+    padding: 8px 16px;
+    background: rgba(91,111,120,0.1);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--cinza-nevoa);
+    font-family: var(--font-primary);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.filter-btn:hover {
+    background: rgba(91,111,120,0.25);
+    color: var(--branco);
+    border-color: var(--azul-ardosia);
+}
+.filter-btn.active {
+    background: var(--branco);
+    color: var(--azul-norturno);
+    border-color: var(--branco);
+}
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--cinza-nevoa);
+    font-size: 1rem;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+    .imoveis-filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 20px;
+    }
+    .filter-buttons {
+        flex-wrap: wrap;
+    }
+}
+
 /* ===== IMÓVEIS ===== */
 .section-imoveis { background: var(--color-bg); }
 .imoveis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }

@@ -361,6 +361,40 @@
                 <h2 class="section-title">Imóveis Disponíveis</h2>
                 <p class="section-desc">Oportunidades selecionadas pelo nosso time de especialistas</p>
             </div>
+
+            <!-- Filtros -->
+            <div class="imoveis-filters" id="imoveisFilters">
+                <div class="filter-group">
+                    <label class="filter-label">Faixa de Preço</label>
+                    <select class="filter-select" id="filterPreco">
+                        <option value="todos">Todos</option>
+                        <option value="0-1000000">Até 1M</option>
+                        <option value="1000000-3000000">1M - 3M</option>
+                        <option value="3000000-5000000">3M - 5M</option>
+                        <option value="5000000-10000000">5M - 10M</option>
+                        <option value="10000000-999999999">Acima de 10M</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Quartos</label>
+                    <div class="filter-buttons" id="filterQuartos">
+                        <button class="filter-btn active" data-value="todos">Todos</button>
+                        <button class="filter-btn" data-value="1">1</button>
+                        <button class="filter-btn" data-value="2">2</button>
+                        <button class="filter-btn" data-value="3">3</button>
+                        <button class="filter-btn" data-value="4">4+</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Tipo</label>
+                    <div class="filter-buttons" id="filterTipo">
+                        <button class="filter-btn active" data-value="todos">Todos</button>
+                        <button class="filter-btn" data-value="venda">Venda</button>
+                        <button class="filter-btn" data-value="temporada">Temporada</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="imoveis-grid" id="imoveisGrid">
                 <!-- Carregado via JS -->
             </div>

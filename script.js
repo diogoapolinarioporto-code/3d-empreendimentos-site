@@ -164,27 +164,109 @@ let imoveisData = [];
 let modalCurrentImg = 0;
 let modalImagens = [];
 
+// Filter state
+let activeFilters = {
+    preco: 'todos',
+    quartos: 'todos',
+    tipo: 'todos'
+};
+
 async function loadImoveis() {
     try {
         const res = await fetch('imoveis.json?t=' + Date.now());
         imoveisData = await res.json();
         renderImoveis();
+        initFilters();
     } catch(e) {
         document.getElementById('imoveisGrid').innerHTML = '<p class="no-imoveis">Nenhum imóvel disponível no momento.</p>';
     }
 }
 
+function initFilters() {
+    // Price filter
+    const filterPreco = document.getElementById('filterPreco');
+    if (filterPreco) {
+        filterPreco.addEventListener('change', (e) => {
+            activeFilters.preco = e.target.value;
+            renderImoveis();
+        });
+    }
+
+    // Quartos filter buttons
+    const filterQuartos = document.getElementById('filterQuartos');
+    if (filterQuartos) {
+        filterQuartos.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterQuartos.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilters.quartos = btn.dataset.value;
+                renderImoveis();
+            });
+        });
+    }
+
+    // Tipo filter buttons
+    const filterTipo = document.getElementById('filterTipo');
+    if (filterTipo) {
+        filterTipo.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterTipo.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilters.tipo = btn.dataset.value;
+                renderImoveis();
+            });
+        });
+    }
+}
+
+function parsePrice(valorStr) {
+    if (!valorStr) return 0;
+    return parseFloat(valorStr.replace(/\./g, '').replace(',', '.')) || 0;
+}
+
+function getFilteredImoveis() {
+    let ativos = imoveisData.filter(im => im.ativo);
+
+    // Filter by price
+    if (activeFilters.preco !== 'todos') {
+        const [min, max] = activeFilters.preco.split('-').map(Number);
+        ativos = ativos.filter(im => {
+            const price = parsePrice(im.valor_venda);
+            return price >= min && price <= max;
+        });
+    }
+
+    // Filter by quartos
+    if (activeFilters.quartos !== 'todos') {
+        const q = parseInt(activeFilters.quartos);
+        ativos = ativos.filter(im => {
+            const quartos = parseInt(im.quartos) || 0;
+            if (q === 4) return quartos >= 4;
+            return quartos === q;
+        });
+    }
+
+    // Filter by tipo
+    if (activeFilters.tipo !== 'todos') {
+        ativos = ativos.filter(im => {
+            return (im.tipo || 'venda') === activeFilters.tipo;
+        });
+    }
+
+    return ativos;
+}
+
 function renderImoveis() {
     const grid = document.getElementById('imoveisGrid');
-    const ativos = imoveisData.filter(im => im.ativo);
+    const ativos = getFilteredImoveis();
     
     if (ativos.length === 0) {
-        grid.innerHTML = '<p class="no-imoveis">Nenhum imóvel disponível no momento.</p>';
+        grid.innerHTML = '<p class="no-results">Nenhum imóvel encontrado com os filtros selecionados.</p>';
         return;
     }
 
     grid.innerHTML = ativos.map((im, i) => `
-        <div class="imovel-card" onclick="openModal(${i})">
+        <div class="imovel-card" onclick="openModal('${im.id}')">
             <img src="${im.imagens && im.imagens[0] ? im.imagens[0] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80'}" alt="${im.titulo}" class="imovel-card-img" loading="lazy">
             <div class="imovel-card-body">
                 <h3 class="imovel-card-title">${im.titulo}</h3>
@@ -200,8 +282,9 @@ function renderImoveis() {
     `).join('');
 }
 
-function openModal(index) {
-    const im = imoveisData.filter(i => i.ativo)[index];
+function openModal(id) {
+    const im = imoveisData.find(i => i.id === id);
+    if (!im) return;
     modalImagens = im.imagens || [];
     modalCurrentImg = 0;
 
