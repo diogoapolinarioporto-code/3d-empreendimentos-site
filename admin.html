@@ -18,9 +18,8 @@
         .login-box button { width: 100%; padding: 14px; background: #fff; color: #041d29; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
         .login-box button:hover { background: #fafcfb; }
         .login-error { color: #ef4444; font-size: 0.85rem; margin-top: 8px; display: none; }
-
         .admin-panel { display: none; padding: 24px; max-width: 1000px; margin: 0 auto; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid rgba(152,164,166,0.15); flex-wrap: wrap; gap: 12px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(152,164,166,0.15); flex-wrap: wrap; gap: 12px; }
         .admin-header h1 { font-size: 1.3rem; }
         .admin-header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
         .btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
@@ -29,75 +28,51 @@
         .btn-danger { background: #ef4444; color: #fff; }
         .btn-danger:hover { background: #dc2626; }
         .btn-secondary { background: rgba(91,111,120,0.2); color: #fafcfb; border: 1px solid rgba(152,164,166,0.2); }
-        .btn-secondary:hover { background: rgba(91,111,120,0.35); }
         .btn-success { background: #22c55e; color: #fff; }
         .btn-success:hover { background: #16a34a; }
         .btn-warning { background: #f59e0b; color: #041d29; }
-        .btn-warning:hover { background: #d97706; }
         .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
-
-        .imoveis-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
-        .imovel-item { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.1); border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .publish-bar { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+        .publish-bar p { font-size: 0.85rem; color: #98a4a6; }
+        .publish-bar .unsaved { color: #f59e0b; font-weight: 500; }
+        .imoveis-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+        .imovel-item { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.1); border-radius: 12px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
         .imovel-item-info { flex: 1; min-width: 200px; }
-        .imovel-item h3 { font-size: 0.95rem; margin-bottom: 4px; }
-        .imovel-item p { color: #98a4a6; font-size: 0.8rem; }
-        .imovel-item .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-        .imovel-item .status-badge.active { background: rgba(34,197,94,0.15); color: #22c55e; }
-        .imovel-item .status-badge.inactive { background: rgba(239,68,68,0.15); color: #ef4444; }
-        .imovel-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        .token-bar { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.1); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .token-bar label { font-size: 0.75rem; color: #98a4a6; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
-        .token-bar input { flex: 1; min-width: 200px; padding: 8px 12px; background: rgba(91,111,120,0.15); border: 1px solid rgba(152,164,166,0.2); border-radius: 6px; color: #fff; font-size: 0.8rem; outline: none; }
-        .token-bar input:focus { border-color: #5b6f78; }
-        .token-status { font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; }
-        .token-status.saved { background: rgba(34,197,94,0.15); color: #22c55e; }
-        .token-status.missing { background: rgba(239,68,68,0.15); color: #ef4444; }
-
+        .imovel-item h3 { font-size: 0.9rem; margin-bottom: 4px; }
+        .imovel-item p { color: #98a4a6; font-size: 0.78rem; }
+        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; }
+        .status-badge.active { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .status-badge.inactive { background: rgba(239,68,68,0.15); color: #ef4444; }
+        .imovel-actions { display: flex; gap: 6px; flex-wrap: wrap; }
         .form-section { background: rgba(91,111,120,0.1); border: 1px solid rgba(152,164,166,0.1); border-radius: 12px; padding: 28px; display: none; }
         .form-section.active { display: block; }
         .form-section h2 { font-size: 1.1rem; margin-bottom: 20px; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-group { margin-bottom: 16px; }
+        .form-group { margin-bottom: 12px; }
         .form-group.full { grid-column: 1 / -1; }
-        .form-group label { display: block; font-size: 0.75rem; color: #98a4a6; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: rgba(91,111,120,0.15); border: 1px solid rgba(152,164,166,0.2); border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; }
+        .form-group label { display: block; font-size: 0.72rem; color: #98a4a6; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px; background: rgba(91,111,120,0.15); border: 1px solid rgba(152,164,166,0.2); border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.88rem; outline: none; }
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #5b6f78; }
-        .form-group textarea { min-height: 120px; resize: vertical; }
-        .form-group select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .form-group select { appearance: none; cursor: pointer; }
         .form-group select option { background: #041d29; color: #fff; }
-        .form-actions { display: flex; gap: 12px; margin-top: 20px; }
-
-        .img-url-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
-        .img-url-row { display: flex; gap: 6px; align-items: center; }
+        .form-actions { display: flex; gap: 12px; margin-top: 16px; }
+        .img-url-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+        .img-url-row { display: flex; gap: 6px; }
         .img-url-row input { flex: 1; font-size: 0.8rem; padding: 8px; }
-        .img-url-row button { padding: 6px 10px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 6px; color: #ef4444; cursor: pointer; font-size: 0.75rem; }
-        .add-img-btn { margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: rgba(91,111,120,0.2); border: 1px solid rgba(152,164,166,0.2); border-radius: 6px; color: #98a4a6; cursor: pointer; }
-        .add-img-btn:hover { background: rgba(91,111,120,0.35); color: #fff; }
-        .images-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-        .images-preview img { width: 80px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(152,164,166,0.2); }
-
+        .img-url-row button { padding: 6px 10px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 6px; color: #ef4444; cursor: pointer; font-size: 0.7rem; }
+        .add-img-btn { margin-top: 6px; padding: 6px 12px; font-size: 0.72rem; background: rgba(91,111,120,0.2); border: 1px solid rgba(152,164,166,0.2); border-radius: 6px; color: #98a4a6; cursor: pointer; }
         .toast { position: fixed; bottom: 24px; right: 24px; padding: 14px 24px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; z-index: 9999; opacity: 0; transform: translateY(20px); transition: 0.3s; }
         .toast.show { opacity: 1; transform: translateY(0); }
         .toast.success { background: #22c55e; color: #fff; }
         .toast.error { background: #ef4444; color: #fff; }
         .toast.info { background: #3b82f6; color: #fff; }
-
-        .commit-status { font-size: 0.8rem; color: #98a4a6; margin-top: 8px; }
-
-        @media (max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .imovel-item { flex-direction: column; align-items: flex-start; }
-            .admin-header { flex-direction: column; align-items: flex-start; }
-        }
+        @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } .imovel-item { flex-direction: column; align-items: flex-start; } }
     </style>
 </head>
 <body>
-
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <h1>Painel Admin</h1>
@@ -108,7 +83,6 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <h1>Gestão de Imóveis</h1>
@@ -118,109 +92,54 @@
             </div>
         </div>
 
-        <!-- GitHub Token Bar -->
-        <div class="token-bar" id="tokenBar">
-            <label>GitHub Token (PAT):</label>
-            <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
-            <button class="btn btn-sm btn-success" onclick="saveToken()">Salvar Token</button>
-            <span class="token-status" id="tokenStatus"></span>
+        <div class="publish-bar" id="publishBar">
+            <p id="publishStatus">Tudo publicado ✓</p>
+            <div>
+                <button class="btn btn-sm btn-success" onclick="publishChanges()">Baixar e Publicar</button>
+            </div>
         </div>
 
-        <!-- Lista de Imóveis -->
         <div class="imoveis-list" id="imoveisList"></div>
 
-        <!-- Formulário -->
         <div class="form-section" id="formSection">
             <h2 id="formTitle">Adicionar Imóvel</h2>
             <div class="form-grid">
+                <div class="form-group full"><label>Título</label><input type="text" id="f_titulo" placeholder="Ex: Les Residences de Mônaco - 4 Suítes"></div>
+                <div class="form-group"><label>Valor de Venda (R$)</label><input type="text" id="f_valor" placeholder="15.000.000"></div>
+                <div class="form-group"><label>Condomínio (R$)</label><input type="text" id="f_condominio" placeholder="8.000"></div>
+                <div class="form-group"><label>IPTU (R$/ano)</label><input type="text" id="f_iptu" placeholder="42.000"></div>
+                <div class="form-group"><label>Quartos</label><input type="number" id="f_quartos" placeholder="4"></div>
+                <div class="form-group"><label>Suítes</label><input type="number" id="f_suites" placeholder="4"></div>
+                <div class="form-group"><label>Banheiros</label><input type="number" id="f_banheiros" placeholder="5"></div>
+                <div class="form-group"><label>Vagas</label><input type="text" id="f_vagas" placeholder="4 cobertas"></div>
+                <div class="form-group"><label>Área (m²)</label><input type="text" id="f_area" placeholder="280"></div>
+                <div class="form-group"><label>Tipo</label><select id="f_tipo"><option value="venda">Venda</option><option value="temporada">Temporada</option></select></div>
+                <div class="form-group full"><label>Descrição</label><textarea id="f_descricao" placeholder="Descrição completa..."></textarea></div>
                 <div class="form-group full">
-                    <label>Título</label>
-                    <input type="text" id="f_titulo" placeholder="Ex: Les Residences de Mônaco - 4 Suítes">
-                </div>
-                <div class="form-group">
-                    <label>Valor de Venda (R$)</label>
-                    <input type="text" id="f_valor" placeholder="15.000.000">
-                </div>
-                <div class="form-group">
-                    <label>Condomínio (R$)</label>
-                    <input type="text" id="f_condominio" placeholder="8.000">
-                </div>
-                <div class="form-group">
-                    <label>IPTU (R$/ano)</label>
-                    <input type="text" id="f_iptu" placeholder="42.000">
-                </div>
-                <div class="form-group">
-                    <label>Quartos</label>
-                    <input type="number" id="f_quartos" placeholder="4">
-                </div>
-                <div class="form-group">
-                    <label>Suítes</label>
-                    <input type="number" id="f_suites" placeholder="4">
-                </div>
-                <div class="form-group">
-                    <label>Banheiros</label>
-                    <input type="number" id="f_banheiros" placeholder="5">
-                </div>
-                <div class="form-group">
-                    <label>Vagas</label>
-                    <input type="text" id="f_vagas" placeholder="4 cobertas">
-                </div>
-                <div class="form-group">
-                    <label>Área (m²)</label>
-                    <input type="text" id="f_area" placeholder="280">
-                </div>
-                <div class="form-group">
-                    <label>Tipo</label>
-                    <select id="f_tipo">
-                        <option value="venda">Venda</option>
-                        <option value="temporada">Temporada</option>
-                    </select>
-                </div>
-                <div class="form-group full">
-                    <label>Descrição</label>
-                    <textarea id="f_descricao" placeholder="Descrição completa do imóvel..."></textarea>
-                </div>
-                <div class="form-group full">
-                    <label>URLs das Imagens (cole os links)</label>
-                    <div class="img-url-list" id="imgUrlList">
-                        <div class="img-url-row">
-                            <input type="text" class="img-url" placeholder="https://...">
-                            <button onclick="removeImageField(this)">✕</button>
-                        </div>
-                    </div>
+                    <label>URLs das Imagens</label>
+                    <div class="img-url-list" id="imgUrlList"><div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div></div>
                     <button class="add-img-btn" onclick="addImageField()">+ Adicionar imagem</button>
-                    <div class="images-preview" id="imagesPreview"></div>
                 </div>
             </div>
             <div class="form-actions">
                 <button class="btn btn-primary" onclick="saveImovel()">Salvar</button>
                 <button class="btn btn-danger" onclick="hideForm()">Cancelar</button>
             </div>
-            <p class="commit-status" id="commitStatus"></p>
         </div>
     </div>
 
     <script>
     const ADMIN_PASS = 'RJ0001';
-    const REPO_OWNER = 'diogoapolinarioporto-code';
-    const REPO_NAME = '3d-empreendimentos-site';
-    const REPO_BRANCH = 'master';
-    const FILE_PATH = 'imoveis.json';
-
     let imoveis = [];
     let editingId = null;
+    let hasUnsaved = false;
 
-    // ===== LOGIN =====
-    document.getElementById('adminPassword').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') doLogin();
-    });
+    document.getElementById('adminPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
 
     function doLogin() {
-        const pass = document.getElementById('adminPassword').value;
-        if (pass === ADMIN_PASS) {
+        if (document.getElementById('adminPassword').value === ADMIN_PASS) {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
-            loadToken();
             loadImoveis();
         } else {
             document.getElementById('loginError').style.display = 'block';
@@ -230,73 +149,69 @@
     function logout() {
         document.getElementById('loginScreen').style.display = 'flex';
         document.getElementById('adminPanel').style.display = 'none';
-        document.getElementById('adminPassword').value = '';
-        document.getElementById('loginError').style.display = 'none';
     }
 
-    // ===== TOAST =====
-    function showToast(message, type = 'info') {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.className = `toast ${type} show`;
-        setTimeout(() => { toast.classList.remove('show'); }, 3500);
+    function showToast(msg, type = 'info') {
+        const t = document.getElementById('toast');
+        t.textContent = msg; t.className = `toast ${type} show`;
+        setTimeout(() => t.classList.remove('show'), 3500);
     }
 
-    // ===== GITHUB TOKEN =====
-    function loadToken() {
-        const token = localStorage.getItem('github_token_3d');
-        const tokenInput = document.getElementById('githubToken');
-        const status = document.getElementById('tokenStatus');
-        if (token) {
-            tokenInput.value = token;
-            status.textContent = 'Salvo';
-            status.className = 'token-status saved';
-        } else {
-            status.textContent = 'Não configurado';
-            status.className = 'token-status missing';
-        }
-    }
-
-    function saveToken() {
-        const token = document.getElementById('githubToken').value.trim();
-        if (!token) {
-            showToast('Insira um token válido', 'error');
-            return;
-        }
-        localStorage.setItem('github_token_3d', token);
-        const status = document.getElementById('tokenStatus');
-        status.textContent = 'Salvo';
-        status.className = 'token-status saved';
-        showToast('Token salvo com sucesso', 'success');
-    }
-
-    function getToken() {
-        return localStorage.getItem('github_token_3d');
-    }
-
-    // ===== LOAD IMÓVEIS =====
     async function loadImoveis() {
-        try {
-            const res = await fetch('imoveis.json?t=' + Date.now());
-            imoveis = await res.json();
-        } catch(e) {
-            imoveis = [];
+        // Load from localStorage first (has latest changes), fallback to file
+        const saved = localStorage.getItem('imoveis_3d');
+        if (saved) {
+            imoveis = JSON.parse(saved);
+        } else {
+            try {
+                const res = await fetch('imoveis.json?t=' + Date.now());
+                imoveis = await res.json();
+                localStorage.setItem('imoveis_3d', JSON.stringify(imoveis));
+            } catch(e) { imoveis = []; }
         }
         renderList();
+        updatePublishStatus();
     }
 
-    // ===== RENDER LIST =====
+    function saveToLocal() {
+        localStorage.setItem('imoveis_3d', JSON.stringify(imoveis));
+        hasUnsaved = true;
+        updatePublishStatus();
+    }
+
+    function updatePublishStatus() {
+        const el = document.getElementById('publishStatus');
+        if (hasUnsaved) {
+            el.innerHTML = '<span class="unsaved">⚠ Alterações não publicadas</span>';
+        } else {
+            el.textContent = 'Tudo publicado ✓';
+        }
+    }
+
+    function publishChanges() {
+        const json = JSON.stringify(imoveis, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'imoveis.json'; a.click();
+        URL.revokeObjectURL(url);
+        hasUnsaved = false;
+        updatePublishStatus();
+        showToast('Arquivo baixado! Agora envie-o para o repositório.', 'success');
+        // Abre a página do GitHub pra upload
+        setTimeout(() => {
+            window.open('https://github.com/diogoapolinarioporto-code/3d-empreendimentos-site/upload/master', '_blank');
+        }, 1000);
+    }
+
     function renderList() {
         const list = document.getElementById('imoveisList');
-        if (imoveis.length === 0) {
-            list.innerHTML = '<p style="color:#98a4a6;text-align:center;padding:40px;">Nenhum imóvel cadastrado</p>';
-            return;
-        }
+        if (imoveis.length === 0) { list.innerHTML = '<p style="color:#98a4a6;text-align:center;padding:30px;">Nenhum imóvel cadastrado</p>'; return; }
         list.innerHTML = imoveis.map((im, i) => `
             <div class="imovel-item">
                 <div class="imovel-item-info">
                     <h3>${im.titulo}</h3>
-                    <p>R$ ${im.valor_venda} | ${im.quartos} quartos | ${im.vagas} vagas | ${im.tipo || 'venda'}</p>
+                    <p>R$ ${im.valor_venda} | ${im.quartos} quartos | ${im.tipo || 'venda'}</p>
                     <span class="status-badge ${im.ativo ? 'active' : 'inactive'}">${im.ativo ? 'Ativo' : 'Inativo'}</span>
                 </div>
                 <div class="imovel-actions">
@@ -308,72 +223,25 @@
         `).join('');
     }
 
-    // ===== TOGGLE ACTIVE =====
-    function toggleActive(index) {
-        imoveis[index].ativo = !imoveis[index].ativo;
-        renderList();
-        commitToGitHub();
-    }
+    function toggleActive(i) { imoveis[i].ativo = !imoveis[i].ativo; renderList(); saveToLocal(); }
+    function deleteImovel(i) { if (confirm('Excluir "' + imoveis[i].titulo + '"?')) { imoveis.splice(i, 1); renderList(); saveToLocal(); } }
 
-    // ===== FORM =====
-    function showForm() {
-        editingId = null;
-        document.getElementById('formTitle').textContent = 'Adicionar Imóvel';
-        clearForm();
-        document.getElementById('formSection').classList.add('active');
-        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function hideForm() {
-        document.getElementById('formSection').classList.remove('active');
-        clearForm();
-        document.getElementById('commitStatus').textContent = '';
-    }
-
+    function showForm() { editingId = null; document.getElementById('formTitle').textContent = 'Adicionar Imóvel'; clearForm(); document.getElementById('formSection').classList.add('active'); }
+    function hideForm() { document.getElementById('formSection').classList.remove('active'); }
     function clearForm() {
-        ['titulo','valor','condominio','iptu','quartos','suites','banheiros','vagas','area','descricao'].forEach(f => {
-            document.getElementById('f_' + f).value = '';
-        });
+        ['titulo','valor','condominio','iptu','quartos','suites','banheiros','vagas','area','descricao'].forEach(f => document.getElementById('f_' + f).value = '');
         document.getElementById('f_tipo').value = 'venda';
-        document.getElementById('imgUrlList').innerHTML = '<div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImageField(this)">✕</button></div>';
-        document.getElementById('imagesPreview').innerHTML = '';
+        document.getElementById('imgUrlList').innerHTML = '<div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div>';
     }
 
     function addImageField() {
         const div = document.getElementById('imgUrlList');
-        const row = document.createElement('div');
-        row.className = 'img-url-row';
-        row.innerHTML = '<input type="text" class="img-url" placeholder="https://..."><button onclick="removeImageField(this)">✕</button>';
-        div.appendChild(row);
+        div.insertAdjacentHTML('beforeend', '<div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div>');
     }
+    function removeImg(btn) { const list = document.getElementById('imgUrlList'); if (list.children.length > 1) btn.parentElement.remove(); else btn.parentElement.querySelector('input').value = ''; }
 
-    function removeImageField(btn) {
-        const row = btn.parentElement;
-        const list = document.getElementById('imgUrlList');
-        if (list.children.length > 1) {
-            row.remove();
-        } else {
-            row.querySelector('input').value = '';
-        }
-        updateImagePreview();
-    }
-
-    function updateImagePreview() {
-        const urls = Array.from(document.querySelectorAll('.img-url'))
-            .map(i => i.value.trim())
-            .filter(u => u.length > 0);
-        const preview = document.getElementById('imagesPreview');
-        preview.innerHTML = urls.map(url => `<img src="${url}" onerror="this.style.display='none'" alt="Preview">`).join('');
-    }
-
-    // Update preview on input change
-    document.getElementById('imgUrlList').addEventListener('input', () => {
-        updateImagePreview();
-    });
-
-    function editImovel(index) {
-        editingId = index;
-        const im = imoveis[index];
+    function editImovel(i) {
+        editingId = i; const im = imoveis[i];
         document.getElementById('formTitle').textContent = 'Editar Imóvel';
         document.getElementById('f_titulo').value = im.titulo || '';
         document.getElementById('f_valor').value = im.valor_venda || '';
@@ -386,45 +254,19 @@
         document.getElementById('f_area').value = im.area || '';
         document.getElementById('f_tipo').value = im.tipo || 'venda';
         document.getElementById('f_descricao').value = im.descricao || '';
-        
-        const imgList = document.getElementById('imgUrlList');
-        imgList.innerHTML = '';
-        (im.imagens || []).forEach(url => {
-            const row = document.createElement('div');
-            row.className = 'img-url-row';
-            row.innerHTML = `<input type="text" class="img-url" value="${url}" placeholder="https://..."><button onclick="removeImageField(this)">✕</button>`;
-            imgList.appendChild(row);
-        });
-        if ((im.imagens || []).length === 0) addImageField();
-        updateImagePreview();
-        
+        const imgList = document.getElementById('imgUrlList'); imgList.innerHTML = '';
+        (im.imagens || []).forEach(url => { imgList.insertAdjacentHTML('beforeend', `<div class="img-url-row"><input type="text" class="img-url" value="${url}" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div>`); });
+        if (!im.imagens || im.imagens.length === 0) addImageField();
         document.getElementById('formSection').classList.add('active');
-        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteImovel(index) {
-        if (confirm(`Excluir "${imoveis[index].titulo}"?`)) {
-            imoveis.splice(index, 1);
-            renderList();
-            commitToGitHub();
-        }
     }
 
     function saveImovel() {
         const titulo = document.getElementById('f_titulo').value.trim();
-        if (!titulo) {
-            showToast('Preencha o título do imóvel', 'error');
-            return;
-        }
-
-        const imagens = Array.from(document.querySelectorAll('.img-url'))
-            .map(i => i.value.trim())
-            .filter(u => u.length > 0);
-
+        if (!titulo) { showToast('Preencha o título', 'error'); return; }
+        const imagens = Array.from(document.querySelectorAll('.img-url')).map(i => i.value.trim()).filter(u => u);
         const imovel = {
             id: editingId !== null ? imoveis[editingId].id : Date.now().toString(),
-            titulo: titulo,
-            valor_venda: document.getElementById('f_valor').value.trim(),
+            titulo, valor_venda: document.getElementById('f_valor').value.trim(),
             condominio: document.getElementById('f_condominio').value.trim(),
             iptu: document.getElementById('f_iptu').value.trim(),
             quartos: document.getElementById('f_quartos').value.trim(),
@@ -434,92 +276,11 @@
             area: document.getElementById('f_area').value.trim(),
             tipo: document.getElementById('f_tipo').value,
             descricao: document.getElementById('f_descricao').value.trim(),
-            imagens: imagens,
-            ativo: editingId !== null ? imoveis[editingId].ativo : true
+            imagens, ativo: editingId !== null ? imoveis[editingId].ativo : true
         };
-
-        if (editingId !== null) {
-            imoveis[editingId] = imovel;
-        } else {
-            imoveis.push(imovel);
-        }
-
-        renderList();
-        hideForm();
-        commitToGitHub();
-    }
-
-    // ===== GITHUB API COMMIT =====
-    async function commitToGitHub() {
-        const token = getToken();
-        if (!token) {
-            showToast('Configure o GitHub Token para salvar automaticamente', 'error');
-            downloadJSON();
-            return;
-        }
-
-        const statusEl = document.getElementById('commitStatus');
-        statusEl.textContent = 'Publicando no GitHub...';
-
-        try {
-            // 1. Get the current file SHA
-            const getRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${REPO_BRANCH}`, {
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-
-            let sha = null;
-            if (getRes.ok) {
-                const data = await getRes.json();
-                sha = data.sha;
-            }
-
-            // 2. Update/create the file
-            const content = btoa(unescape(encodeURIComponent(JSON.stringify(imoveis, null, 2))));
-            const body = {
-                message: `Atualizar imoveis.json via admin panel - ${new Date().toLocaleString('pt-BR')}`,
-                content: content,
-                branch: REPO_BRANCH
-            };
-            if (sha) body.sha = sha;
-
-            const putRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            });
-
-            if (putRes.ok) {
-                statusEl.textContent = '✓ Publicado com sucesso no GitHub!';
-                showToast('Alterações publicadas no site!', 'success');
-            } else {
-                const err = await putRes.json();
-                throw new Error(err.message || 'Erro ao publicar');
-            }
-        } catch (error) {
-            statusEl.textContent = '✕ Erro ao publicar: ' + error.message;
-            showToast('Erro ao publicar no GitHub. Baixando arquivo...', 'error');
-            downloadJSON();
-        }
-    }
-
-    // ===== FALLBACK DOWNLOAD =====
-    function downloadJSON() {
-        const json = JSON.stringify(imoveis, null, 2);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'imoveis.json';
-        a.click();
-        URL.revokeObjectURL(url);
-        showToast('Arquivo imoveis.json baixado como fallback', 'info');
+        if (editingId !== null) imoveis[editingId] = imovel; else imoveis.push(imovel);
+        renderList(); hideForm(); saveToLocal();
+        showToast('Imóvel salvo! Clique em "Baixar e Publicar" para atualizar o site.', 'success');
     }
     </script>
 </body>
