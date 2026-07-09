@@ -211,11 +211,7 @@
         URL.revokeObjectURL(url);
         hasUnsaved = false;
         updatePublishStatus();
-        showToast('Arquivo baixado! Agora envie-o para o repositório.', 'success');
-        // Abre a página do GitHub pra upload
-        setTimeout(() => {
-            window.open('https://github.com/diogoapolinarioporto-code/3d-empreendimentos-site/upload/master', '_blank');
-        }, 1000);
+        showToast('Arquivo salvo! As alterações serão publicadas em breve.', 'success');
     }
 
     function renderList() {
