@@ -359,10 +359,14 @@ document.getElementById('imovelModal').addEventListener('click', (e) => {
 });
 
 // ===== ADMIN SECRET TRIGGER =====
-// Clique duplo na logo do footer abre o painel admin
-document.querySelector('.footer-brand').addEventListener('dblclick', () => {
-    window.open('admin.html', '_blank');
-});
+// Clique duplo no copyright do footer abre o painel admin
+const footerTrigger = document.querySelector('.footer-bottom');
+if (footerTrigger) {
+    footerTrigger.addEventListener('dblclick', () => {
+        window.open('admin.html', '_blank');
+    });
+    footerTrigger.style.cursor = 'default';
+}
 
 // Load imóveis on page load
 loadImoveis();
