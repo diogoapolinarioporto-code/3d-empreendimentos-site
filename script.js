@@ -171,14 +171,24 @@ let activeFilters = {
     tipo: 'todos'
 };
 
+const IMOVEIS_API = 'https://jsonblob.com/api/jsonBlob/019f476a-c0d6-70ce-b7ca-157d67199eb4';
+
 async function loadImoveis() {
     try {
-        const res = await fetch('imoveis.json?t=' + Date.now());
+        const res = await fetch(IMOVEIS_API);
         imoveisData = await res.json();
         renderImoveis();
         initFilters();
     } catch(e) {
-        document.getElementById('imoveisGrid').innerHTML = '<p class="no-imoveis">Nenhum imóvel disponível no momento.</p>';
+        // Fallback para arquivo local
+        try {
+            const res2 = await fetch('imoveis.json?t=' + Date.now());
+            imoveisData = await res2.json();
+            renderImoveis();
+            initFilters();
+        } catch(e2) {
+            document.getElementById('imoveisGrid').innerHTML = '<p class="no-imoveis">Nenhum imóvel disponível no momento.</p>';
+        }
     }
 }
 

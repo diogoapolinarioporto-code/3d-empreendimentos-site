@@ -104,7 +104,7 @@
         <div class="publish-bar" id="publishBar">
             <p id="publishStatus">Tudo publicado ✓</p>
             <div>
-                <button class="btn btn-sm btn-success" onclick="publishChanges()">Baixar e Publicar</button>
+                <button class="btn btn-sm btn-success" onclick="publishChanges()">Publicar no Site</button>
             </div>
         </div>
 
@@ -144,6 +144,7 @@
 
     <script>
     const ADMIN_PASS = 'RJ0001';
+    const IMOVEIS_API = 'https://jsonblob.com/api/jsonBlob/019f476a-c0d6-70ce-b7ca-157d67199eb4';
     let imoveis = [];
     let editingId = null;
     let hasUnsaved = false;
@@ -172,17 +173,16 @@
     }
 
     async function loadImoveis() {
-        // Load from localStorage first (has latest changes), fallback to file
-        const saved = localStorage.getItem('imoveis_3d');
-        if (saved) {
-            imoveis = JSON.parse(saved);
-        } else {
-            try {
-                const res = await fetch('imoveis.json?t=' + Date.now());
-                imoveis = await res.json();
-                localStorage.setItem('imoveis_3d', JSON.stringify(imoveis));
-            } catch(e) { imoveis = []; }
+        try {
+            const res = await fetch(IMOVEIS_API);
+            imoveis = await res.json();
+        } catch(e) {
+            // Fallback localStorage
+            const saved = localStorage.getItem('imoveis_3d');
+            if (saved) imoveis = JSON.parse(saved);
+            else imoveis = [];
         }
+        localStorage.setItem('imoveis_3d', JSON.stringify(imoveis));
         renderList();
         updatePublishStatus();
     }
@@ -202,16 +202,28 @@
         }
     }
 
-    function publishChanges() {
-        const json = JSON.stringify(imoveis, null, 2);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = 'imoveis.json'; a.click();
-        URL.revokeObjectURL(url);
-        hasUnsaved = false;
-        updatePublishStatus();
-        showToast('Arquivo salvo! As alterações serão publicadas em breve.', 'success');
+    async function publishChanges() {
+        const btn = document.querySelector('.publish-bar .btn-success');
+        btn.textContent = 'Publicando...';
+        btn.disabled = true;
+        try {
+            const res = await fetch(IMOVEIS_API, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(imoveis)
+            });
+            if (res.ok) {
+                hasUnsaved = false;
+                updatePublishStatus();
+                showToast('Publicado! O site já foi atualizado.', 'success');
+            } else {
+                throw new Error('Erro ' + res.status);
+            }
+        } catch(err) {
+            showToast('Erro ao publicar: ' + err.message, 'error');
+        }
+        btn.textContent = 'Publicar no Site';
+        btn.disabled = false;
     }
 
     function renderList() {
