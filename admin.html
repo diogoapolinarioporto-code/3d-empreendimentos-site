@@ -67,6 +67,15 @@
         .toast.success { background: #22c55e; color: #fff; }
         .toast.error { background: #ef4444; color: #fff; }
         .toast.info { background: #3b82f6; color: #fff; }
+        .upload-area { border: 2px dashed rgba(152,164,166,0.3); border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; transition: 0.2s; margin-top: 6px; }
+        .upload-area:hover, .upload-area.dragover { border-color: #5b6f78; background: rgba(91,111,120,0.1); }
+        .upload-area p { color: #98a4a6; font-size: 0.82rem; margin-bottom: 10px; }
+        .upload-progress { margin-top: 8px; font-size: 0.8rem; color: #98a4a6; }
+        .upload-progress .uploading { color: #3b82f6; }
+        .images-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .img-thumb { position: relative; width: 100px; height: 75px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(152,164,166,0.2); }
+        .img-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .img-thumb button { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: rgba(239,68,68,0.9); border: none; color: #fff; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } .imovel-item { flex-direction: column; align-items: flex-start; } }
     </style>
 </head>
@@ -116,9 +125,14 @@
                 <div class="form-group"><label>Tipo</label><select id="f_tipo"><option value="venda">Venda</option><option value="temporada">Temporada</option></select></div>
                 <div class="form-group full"><label>Descrição</label><textarea id="f_descricao" placeholder="Descrição completa..."></textarea></div>
                 <div class="form-group full">
-                    <label>URLs das Imagens</label>
-                    <div class="img-url-list" id="imgUrlList"><div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div></div>
-                    <button class="add-img-btn" onclick="addImageField()">+ Adicionar imagem</button>
+                    <label>Imagens</label>
+                    <div class="upload-area" id="uploadArea" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleDrop(event)">
+                        <p>Arraste imagens aqui ou clique para selecionar</p>
+                        <input type="file" id="fileInput" multiple accept="image/*" onchange="handleFiles(this.files)" style="display:none">
+                        <button type="button" class="add-img-btn" onclick="document.getElementById('fileInput').click()">Selecionar Imagens</button>
+                    </div>
+                    <div class="upload-progress" id="uploadProgress"></div>
+                    <div class="images-grid" id="imagesGrid"></div>
                 </div>
             </div>
             <div class="form-actions">
@@ -226,19 +240,64 @@
     function toggleActive(i) { imoveis[i].ativo = !imoveis[i].ativo; renderList(); saveToLocal(); }
     function deleteImovel(i) { if (confirm('Excluir "' + imoveis[i].titulo + '"?')) { imoveis.splice(i, 1); renderList(); saveToLocal(); } }
 
-    function showForm() { editingId = null; document.getElementById('formTitle').textContent = 'Adicionar Imóvel'; clearForm(); document.getElementById('formSection').classList.add('active'); }
+    function showForm() { editingId = null; currentImages = []; document.getElementById('formTitle').textContent = 'Adicionar Imóvel'; clearForm(); document.getElementById('formSection').classList.add('active'); }
     function hideForm() { document.getElementById('formSection').classList.remove('active'); }
     function clearForm() {
         ['titulo','valor','condominio','iptu','quartos','suites','banheiros','vagas','area','descricao'].forEach(f => document.getElementById('f_' + f).value = '');
         document.getElementById('f_tipo').value = 'venda';
-        document.getElementById('imgUrlList').innerHTML = '<div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div>';
+        currentImages = [];
+        renderImages();
     }
 
-    function addImageField() {
-        const div = document.getElementById('imgUrlList');
-        div.insertAdjacentHTML('beforeend', '<div class="img-url-row"><input type="text" class="img-url" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div>');
+    // ===== IMAGE UPLOAD (ImgBB) =====
+    const IMGBB_KEY = '44c1cba85eee2843845af8964c6aa4ab'; // Free API key
+    let currentImages = [];
+
+    function handleDrop(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
     }
-    function removeImg(btn) { const list = document.getElementById('imgUrlList'); if (list.children.length > 1) btn.parentElement.remove(); else btn.parentElement.querySelector('input').value = ''; }
+
+    async function handleFiles(files) {
+        const progress = document.getElementById('uploadProgress');
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.startsWith('image/')) continue;
+            progress.innerHTML = `<span class="uploading">Enviando ${i+1}/${files.length}...</span>`;
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+                const res = await fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_KEY, { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.success) {
+                    currentImages.push(data.data.display_url);
+                    renderImages();
+                } else {
+                    showToast('Erro ao enviar imagem', 'error');
+                }
+            } catch(err) {
+                showToast('Erro de conexão ao enviar imagem', 'error');
+            }
+        }
+        progress.innerHTML = '';
+        document.getElementById('fileInput').value = '';
+    }
+
+    function renderImages() {
+        const grid = document.getElementById('imagesGrid');
+        grid.innerHTML = currentImages.map((url, i) => `
+            <div class="img-thumb">
+                <img src="${url}" alt="Foto ${i+1}">
+                <button onclick="removeImage(${i})">✕</button>
+            </div>
+        `).join('');
+    }
+
+    function removeImage(i) {
+        currentImages.splice(i, 1);
+        renderImages();
+    }
 
     function editImovel(i) {
         editingId = i; const im = imoveis[i];
@@ -254,16 +313,14 @@
         document.getElementById('f_area').value = im.area || '';
         document.getElementById('f_tipo').value = im.tipo || 'venda';
         document.getElementById('f_descricao').value = im.descricao || '';
-        const imgList = document.getElementById('imgUrlList'); imgList.innerHTML = '';
-        (im.imagens || []).forEach(url => { imgList.insertAdjacentHTML('beforeend', `<div class="img-url-row"><input type="text" class="img-url" value="${url}" placeholder="https://..."><button onclick="removeImg(this)">✕</button></div>`); });
-        if (!im.imagens || im.imagens.length === 0) addImageField();
+        currentImages = [...(im.imagens || [])];
+        renderImages();
         document.getElementById('formSection').classList.add('active');
     }
 
     function saveImovel() {
         const titulo = document.getElementById('f_titulo').value.trim();
         if (!titulo) { showToast('Preencha o título', 'error'); return; }
-        const imagens = Array.from(document.querySelectorAll('.img-url')).map(i => i.value.trim()).filter(u => u);
         const imovel = {
             id: editingId !== null ? imoveis[editingId].id : Date.now().toString(),
             titulo, valor_venda: document.getElementById('f_valor').value.trim(),
@@ -276,7 +333,7 @@
             area: document.getElementById('f_area').value.trim(),
             tipo: document.getElementById('f_tipo').value,
             descricao: document.getElementById('f_descricao').value.trim(),
-            imagens, ativo: editingId !== null ? imoveis[editingId].ativo : true
+            imagens: currentImages, ativo: editingId !== null ? imoveis[editingId].ativo : true
         };
         if (editingId !== null) imoveis[editingId] = imovel; else imoveis.push(imovel);
         renderList(); hideForm(); saveToLocal();
